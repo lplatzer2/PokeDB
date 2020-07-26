@@ -1,0 +1,51 @@
+<%-include ("partials/header") %>
+<div class="body-container">
+	<h1>Add a Pokemon</h1>
+	<div class="ui container">
+		
+		<form class="ui form" method="POST" action="/pokemon">
+			<div class="field">
+				<label>Name</label>
+				<input  type="text" name="entry[name]" placeholder="Your Pokemon's Name" required="required">
+
+			</div>
+			<div class="field">
+				<label>Level</label>
+				<input type="number" name="entry[level]" min="1" max="100" required="required">
+			</div>
+
+			<div class="field">
+				<label for="generation">Generation</label>
+				<select id ="generation" name="entry[generation]" required="required">
+					<option value="all">Any Generation</option>
+					<option value="0">Gen 1: Kanto - Red,Blue,Yellow</option>
+					<option value="1">Gen 2: Johto - Gold,Silver,Crystal</option>
+					<option value="2">Gen 3: Hoenn - Ruby,Sapphire,Emerald</option>
+					<option value="3">Gen 4: Sinnoh - Diamond,Pearl,Platinum</option>
+					<option value="4">Gen 5: Unova - Black and White</option>
+					<option value="5">Gen 6: Kalos- X and Y</option>
+					<option value="6">Gen 7: Alola - Sun and Moon</option>
+				</select>
+				<label>Species</label>
+				<select id="species" name="entry[species]" required="required">
+					<%pokeNames.forEach(item=>{ %>
+						<option value="<%=item.name %>"><%=item.name%></option>	
+					<% })%>
+
+				</select>
+			
+			</div>
+			
+			<input type="submit" class="ui button green">
+
+		</form>
+
+	</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script  src="../test.js"></script>
+
+
+<%-include ("partials/footer") %>

@@ -1,0 +1,129 @@
+h1{
+	font-family: 'Righteous', cursive;
+	font-size: 4em;
+	font-weight: 500;
+	color:#f2711c;
+	text-align: center;
+	
+}
+
+
+
+
+
+
+#hero-text h1{
+	margin-bottom: 0;
+	line-height: .5;
+	text-align: inherit;
+}
+
+h1 span{
+	color: white;
+	font-style: italic;
+}
+
+
+.ui.menu.fixed{
+	margin:0;
+	margin-bottom:  100px;
+}
+
+.body-container{
+	margin-top: 100px;
+}
+
+#records{
+	margin: 10px auto;
+}
+
+#hero{
+	height: 853px;
+
+	color: white;
+	/*background-image:url("https://images.unsplash.com/photo-1542779283-429940ce8336?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");*/
+	background-image: url("/hero2.jpg");
+	background-position: left;
+	background-size: contain;
+	background-repeat: no-repeat;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+
+}
+#hero-content{
+	text-align: right;
+	padding: 15px;
+	margin: 25px;
+}
+
+#hero-text h2{
+/*margin:25px 10px 55px 25px;*/
+margin-bottom: 55px;
+line-height: 0.5;
+	
+}
+
+#hero-buttons .ui.button{
+	margin: 5px;
+}
+
+#delete{
+	display: inline;
+}
+
+.fa-trash-alt{
+	margin: 0 5px;
+}
+
+.avatar-container{
+	width: 250px;
+	margin:auto;
+}
+
+[type="radio"]{
+	position: absolute;
+	bottom: -20px;
+	left:43%;
+}
+
+.input-container{
+	position: relative;
+	
+}
+
+.field-group{
+	display: flex;
+	flex-wrap: wrap;
+	margin: .5em 0;
+	
+
+}
+
+.ui.form .field{
+	margin: 10px 0 2em;
+	
+}
+
+.ui.form .field:last-child{
+	margin: 10px 0 2em;
+}
+
+.ui.form{
+	width: 80%;
+	margin: auto;
+
+}
+
+
+
+.ui.form input:not([type]), .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=email], .ui.form input[type=file], .ui.form input[type=number], .ui.form input[type=password], .ui.form input[type=search], .ui.form input[type=tel], .ui.form input[type=text], .ui.form input[type=time], .ui.form input[type=url] {
+border: 1px solid rgba(158,158,158,0.55);
+}
+
+label{
+	font-weight: 700;
+	font-size: .92857143em;
+	margin:0 0 .28571429rem 0;
+
+}

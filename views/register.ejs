@@ -1,0 +1,96 @@
+<%-include ("partials/header") %>
+<div class="body-container">
+	<h1>Sign Up</h1>
+	<div class="ui container">
+		
+		<form class="ui form" method="POST" action="/register">
+			<div class="field">
+				<label>Username</label>
+				<input  type="text" name="username" placeholder="Enter Username" required="required">
+
+			</div>
+			<div class="field">
+				<label>Password</label>
+				<input type="password" name="password" placehoder="Enter password" required="required">
+			</div>
+
+			<div >
+				<label for="avatar">Choose your Avatar</label>
+				<div class=" field-group">
+					<div class="field input-container">
+						<!-- <div class="input-container"> -->
+							<input type="radio" name="avatar" value="../avatar1.png">
+							<label><img src="../avatar1.png" width="100px"></label>
+						<!-- </div> -->
+					</div>
+					
+					<div class="field input-container">
+						<!--<div class="input-container">-->
+							<input type="radio" name="avatar" value="../avatar2.png">
+							<label><img src="../avatar2.png" width="100px"></label>
+						<!--</div>-->
+					</div>
+
+					<div class="field input-container">
+						<!--<div class="input-container">-->
+							<input type="radio" name="avatar" value="../avatar3.png">
+							<label><img src="../avatar3.png" width="100px"></label>
+						<!--</div>-->
+					</div>
+
+					<div class="field input-container">
+						<!--<div class="input-container">-->
+							<input type="radio" name="avatar" value="../avatar4.png">
+							<label><img src="../avatar4.png" width="100px"></label>
+						<!--</div>-->
+					</div>
+
+					
+					<div class="field input-container">
+						<!--<div class="input-container">-->
+							<input type="radio" name="avatar" value="../avatar5.png">
+							<label><img src="../avatar5.png" width="100px"></label>
+						<!--</div>-->
+					</div>
+
+					<div class="field input-container">
+						<!--<div class="input-container">-->
+							<input type="radio" name="avatar" value="../avatar6.png">
+							<label><img src="../avatar6.png" width="100px"></label>
+						<!--</div>-->
+					</div>
+
+					<div class="field input-container">
+						<!--<div class="input-container">-->
+							<input type="radio" name="avatar" tabindex="0" value="../avatar7.png">
+							<label><img src="../avatar7.png" width="100px"></label>
+						<!--</div>-->
+					</div>
+
+					<div class="field input-container">
+						<!--<div class="input-container">-->
+							<input type="radio" name="avatar" tabindex="0" value="../avatar8.png">
+							<label class="avatar-radio"><img src="../avatar8.png" width="100px"></label>
+						<!--</div>-->
+					</div>
+
+
+					</div> <!--field grp-->
+
+
+				
+
+			</div> <!--that div-->
+				
+			<button type="submit" class="ui button green">Sign Up</button>
+
+		</form>
+		
+	</div> <!--ui container-->
+
+</div> <!--body container-->
+
+
+
+
+<%-include ("partials/footer") %>

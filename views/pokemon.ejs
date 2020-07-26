@@ -1,0 +1,30 @@
+<%- include("partials/header")%>
+
+<div id="records" class="ui center aligned grid container">
+		<div class="row">
+			<h2 class="center">All Pokemon</h2>
+		</div>
+	<% 	pokemon.forEach(poke=>{ %>
+
+			<div class="ui  raised segment" >
+	
+				<img src="<%=poke.image %>">
+				<h3><%= poke.name %></h3>
+				<p>Lvl <%= poke.level%></p>
+				<p>Caught by <a href="../users/<%=poke.owner.username%>"><%=poke.owner.username%></a></p>
+				<a href="/pokemon/<%=poke._id %>" class="ui button blue">Info</a>
+				
+				<%if(currentUser && poke.owner.id.equals(currentUser.id)){%>
+					<form id="delete" method="POST" action="/pokemon/<%=poke._id%>?_method=DELETE">
+						<button class="ui button basic red"><i class="fas fa-trash-alt"></i>Delete</button>
+					</form>
+				<%}%>
+
+			</div>
+
+	<%	}) %>
+		
+	</div>
+
+
+<%- include("partials/footer")%>

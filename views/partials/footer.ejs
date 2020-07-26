@@ -1,0 +1,28 @@
+
+
+<div class="ui container">
+	
+	<% if(error && error.length>0){%>
+		<%console.log(error);%>
+			<div class="ui red negative message">
+			  <div class="header">
+			   <%=error%>
+			  </div>
+			</div>
+		<% }%>
+
+<% if(success && success.length>0){%>
+	<%console.log(success);%>
+	<div class="ui positive message">
+		  <div class="header">
+		   <%=success%>
+		  </div>
+		</div>
+
+	<% }%>
+
+	
+</div>
+
+</body>
+</html>

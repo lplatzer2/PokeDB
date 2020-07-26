@@ -1,0 +1,18 @@
+<%-include ("partials/header") %>
+
+<div class="ui container" >
+
+	<div class="body-container">
+		<h1>All about <%=pokemon.name%></h1>
+		<img src="<%=pokemon.image %>">
+		<p>Name: <%= pokemon.name %></p>
+		<p>Level: <%= pokemon.level %></p>
+		<p>Species: <%= pokemon.species.charAt(0).toUpperCase()+pokemon.species.slice(1) %></p>
+		<a href="/pokemon/<%=pokemon._id%>/edit" class="ui button blue">Edit</a>
+
+
+	</div>
+	
+</div>
+
+<%-include ("partials/footer") %>

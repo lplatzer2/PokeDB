@@ -1,0 +1,45 @@
+<%-include("partials/header")%>
+<div class="ui body-container">
+	
+	<div class="avatar-container">
+
+		<img width="200px" src=<%=user.avatar%>
+	/>
+	</div>
+
+	<h1 class="page-title"><%=user.username%>'s Profile</h1>
+
+	<%if(user.pokeCollection && user.pokeCollection.length>0){%>
+	<div id="records" class="ui center aligned grid container">
+		<div class="row">
+			<h2 class="center"><%=user.username%>'s Collection</h2>
+		</div>
+	<% 	user.pokeCollection.forEach(poke=>{ %>
+			<%console.log(poke.owner); %>
+			<div class="ui  raised segment" >
+	
+				<img src="<%=poke.image %>">
+				<h3><%= poke.name %></h3>
+				<p>Lvl <%= poke.level%></p>
+				<a href="/pokemon/<%=poke._id %>" class="ui button blue">Info</a>
+
+				<%if(currentUser && user._id.equals(currentUser.id)){ %>
+					<form id="delete" method="POST" action="/pokemon/<%=poke._id%>?_method=DELETE">
+						<button class="ui button basic red"><i class="fas fa-trash-alt"></i>Delete</button>
+					</form>
+				<%} %>
+				
+				
+
+			</div>
+
+	<%	}) %>
+		
+	</div>
+
+	<%}else{%>
+	<p>Your pokedex is empty! <a href="/pokemon/new">Go add some pokemon.</a></p>
+	<%}%>
+</div>
+
+<%-include("partials/footer") %>

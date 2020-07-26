@@ -1,0 +1,30 @@
+<%-include ("partials/header") %>
+<div class="body-container">
+	<h1>Log In</h1>
+	<div class="ui container">
+	
+		<form class="ui form" method="POST" action="/login">
+			<div class="field">
+				<label>Username</label>
+				<input  type="text" name="username" placeholder="Enter Username" required="required">
+
+			</div>
+			<div class="field">
+				<label>Password</label>
+				<input type="password" name="password" placehoder="Enter password" required="required">
+			</div>
+
+			
+			<button type="submit" class="ui button green">Login</button>
+
+		</form>
+
+	</div>
+
+
+</div>
+
+
+
+
+<%-include ("partials/footer") %>
