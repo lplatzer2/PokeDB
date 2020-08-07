@@ -8,7 +8,10 @@
 		<p>Name: <%= pokemon.name %></p>
 		<p>Level: <%= pokemon.level %></p>
 		<p>Species: <%= pokemon.species.charAt(0).toUpperCase()+pokemon.species.slice(1) %></p>
-		<a href="/pokemon/<%=pokemon._id%>/edit" class="ui button blue">Edit</a>
+		
+		<%if(currentUser && pokemon.owner.id.equals(currentUser.id)){%>
+			<a href="/pokemon/<%=pokemon._id%>/edit" class="ui button blue">Edit</a>
+		<%}%>
 
 
 	</div>
