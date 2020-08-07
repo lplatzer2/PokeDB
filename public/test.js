@@ -1,8 +1,15 @@
 const genMenu = document.getElementById("generation");
 const nameMenu = document.getElementById("species");
 const allGens = document.querySelectorAll("#species option");
+const preview = document.getElementById("preview");
+ const pokeNames = JSON.parse(document.getElementById("data").textContent);
 
-console.log(allGens);
+	console.log(  pokeNames);
+
+
+let options = allGens;
+
+// console.log(allGens);
 
 
 // get all the names - done in app.js
@@ -39,7 +46,7 @@ async function getGenerations(){
 		const promises = await Promise.all([getGen1(), getGen2(), getGen3(), getGen4(), getGen5(), getGen6(), getGen7()]);
 		const genSpecies = promises.map(res=>res.data.pokemon_species);
 
-		console.log(genSpecies);
+		// console.log(genSpecies);
 
 		 genSpecies.forEach(gen=>{
 		 	gen.sort((a,b)=>a.name>b.name ? 1 : -1);
@@ -61,8 +68,27 @@ async function getGenerations(){
 				// console.log(option);
 				option.textContent=`${pokemon.name}`;
 				nameMenu.appendChild(option);
-			})
+			});
+
+			//update options selector
+			options = document.querySelectorAll("#species option");
+			console.log(options);
 		})
+
+		// options.forEach(option=>{
+		// 	console.log(typeof option);
+		// 	option.addEventListener("mouseover", sayHi); //doesn't work :(
+		// });
+
+		nameMenu.addEventListener("change", previewPoke);
+
+		function previewPoke(){
+			console.log(`clicked ${nameMenu.value}`);
+			const foundPoke = pokeNames.find(pokemon=>pokemon.name ===nameMenu.value);
+			console.log(foundPoke.image);
+			preview.innerHTML=`<img src="${foundPoke.image}">`;
+		}
+
 
 	}catch(error){
 		console.log(error);
@@ -71,4 +97,6 @@ async function getGenerations(){
 }
 
 getGenerations();
+
+
 
