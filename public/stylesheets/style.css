@@ -127,3 +127,15 @@ label{
 	margin:0 0 .28571429rem 0;
 
 }
+
+.poke-display{
+position: relative;
+}
+
+.poke-display .edit.icon{
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	font-size: 18px;
+	
+}
