@@ -6,7 +6,7 @@
 		</div>
 	<% 	pokemon.forEach(poke=>{ %>
 
-			<div class="ui  raised segment" >
+			<div class="ui raised segment poke-display" >
 	
 				<img src="<%=poke.image %>">
 				<h3><%= poke.name %></h3>
@@ -15,8 +15,9 @@
 				<a href="/pokemon/<%=poke._id %>" class="ui button blue">Info</a>
 				
 				<%if(currentUser && poke.owner.id.equals(currentUser.id)){%>
+				<a href="/pokemon/<%=poke._id%>/edit"><i class="edit icon"></i></a>
 					<form id="delete" method="POST" action="/pokemon/<%=poke._id%>?_method=DELETE">
-						<button class="ui button basic red"><i class="fas fa-trash-alt"></i>Delete</button>
+						<button class="ui button basic red"><i class="trash alternate icon"></i>Delete</button>
 					</form>
 				<%}%>
 
