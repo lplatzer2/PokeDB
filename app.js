@@ -44,7 +44,7 @@ app.use((req,res,next)=>{
 	res.locals.currentUser = req.user;
 	res.locals.success = req.flash("success");
 	res.locals.error = req.flash("error");
-	console.log(res.locals.error);
+	// console.log(res.locals.error);
 	next();
 })
 
@@ -61,26 +61,45 @@ app.get("/pokemon", isLoggedIn,(req,res)=>{
 			res.send("Whoops,an error");
 		}else{
 			// console.log(foundPoke);
-			res.render("pokemon", {pokemon:foundPoke});
+			res.render("pokemon", {pokemon:foundPoke, page:"view"});
 		}
 	})
 	
 })
-//get pokemon names for autocomplete in new form
+//get pokemon names and images for autocomplete in new form
 const pokeNames = [];
 axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1000`)
 	.then(res=>{
-		res.data.results.forEach((poke,i)=>{
-			pokeNames.push({name:poke.name, index: i+1});
-		})
+		let startId = 1;
+		let counter = 0;
+		 res.data.results.forEach((poke,i)=>{
+		 	if(i===807){
+				startId = 10001;
+				counter =0;
+			}
+		 	pokeNames.push({name:poke.name, index: counter+startId, image:`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${counter+startId}.png`});
+			counter++;
+		 })
+		 //another method
+		// let mainPokeNames = res.data.results.slice(0,807);
+		// let altPokeNames = res.data.results.slice(807);
+		// // console.log("main are:", mainPokeNames);
+		// // console.log("alts are:", altPokeNames);
+		// mainPokeNames.forEach((poke,i)=>{
+		// 	pokeNames.push({name:poke.name, index: i+1, image:`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i+1}.png`});
+		// })
+		// altPokeNames.forEach((poke,i)=>{
+		// 	pokeNames.push({name:poke.name, index: i+10001, image:`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${i+10001}.png`});
+		// })
+
 		pokeNamesAZ = pokeNames.sort((a,b)=>a.name>b.name? 1:-1);
 		console.log("Done w/name call");
-		 // console.log(pokeNames);
+		  // console.log(pokeNames);
 	});
 
 //NEW
-app.get("/pokemon/new",isLoggedIn,  (req, res)=>{
-	res.render("new", {pokeNames:pokeNamesAZ});
+app.get("/pokemon/new", (req, res)=>{
+	res.render("new", {pokeNames:pokeNamesAZ, page: "add"});
 })
 
 
@@ -100,7 +119,7 @@ app.post("/pokemon", isLoggedIn, (req,res)=>{
 		
 				Pokemon.create(reqBody, (err,newPoke)=>{
 					if(err){
-						res.render("new");
+						res.render("new", {page: "add"});
 					}else{
 						// console.log(reqBody);
 						// console.log("new poke :", newPoke);
@@ -119,13 +138,13 @@ app.post("/pokemon", isLoggedIn, (req,res)=>{
 
 //SHOW
 app.get("/pokemon/:id", isLoggedIn, (req,res)=>{
-	console.log(req.params.id);
+	// console.log(req.params.id);
 	Pokemon.findById(req.params.id, (err,foundPoke)=>{
 		if(err || !foundPoke){
 			req.flash("error", "Pokemon not found.");
 			res.redirect("/pokemon")
 		}else{
-			console.log(foundPoke);
+			// console.log(foundPoke);
 			 res.render("show", {pokemon:foundPoke});
 		}
 	})
@@ -139,7 +158,7 @@ app.get("/pokemon/:id/edit", isLoggedIn, isPokeOwner, (req,res)=>{
 			req.flash("error", "Pokemon not found.");
 			res.redirect("/pokemon/:id")
 		}else{
-			console.log(foundPoke);
+			// console.log(foundPoke);
 			 res.render("edit", {pokemon:foundPoke, pokeNames:pokeNames});
 		}
 	})
@@ -175,19 +194,19 @@ app.delete("/pokemon/:id", isLoggedIn, isPokeOwner, (req,res)=>{
 
 // REGISTER
 app.get("/register", (req,res)=>{
-	res.render("register");
+	res.render("register", {page: "register"});
 })
 
 app.post("/register", (req,res)=>{
 	User.register(new User({username:req.body.username, avatar:req.body.avatar}), req.body.password, (err,user)=>{
 		if(err){
-			console.log(err);
-			return res.render("register", {"error": err.message});
+			// console.log(err);
+			return res.render("register", {"error": err.message, page: "register"});
 		}
 		passport.authenticate("local")(req,res,()=>{
 
 			req.flash("success", `Welcome, ${user.username}!`);
-			console.log(res.locals.success);
+			// console.log(res.locals.success);
 			res.redirect(`/users/${user.username}`);
 		});
 	})
@@ -198,7 +217,7 @@ app.get("/login", (req,res)=>{
 	if(req.isAuthenticated()){
 		res.redirect(`/users/${req.user.username}`);
 	}else{
-		res.render("login");
+		res.render("login", {page: "login"});
 	}
 	
 })
@@ -219,8 +238,8 @@ app.get("/users/:id", isLoggedIn, (req,res)=>{
 			req.flash("error", "User not found.");
 			res.redirect("back");
 		}else{
-			console.log(foundUser.populated("pokeCollection"));
-			res.render("user",{user:foundUser});
+			// console.log(foundUser.populated("pokeCollection"));
+			res.render("user",{user:foundUser, page:"profile"});
 		}
 	})
 	

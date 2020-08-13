@@ -26,16 +26,20 @@
 					<option value="5">Gen 6: Kalos- X and Y</option>
 					<option value="6">Gen 7: Alola - Sun and Moon</option>
 				</select>
+			</div>
+			<div class="field">
 				<label>Species</label>
 				<select id="species" name="entry[species]" required="required">
 					<%pokeNames.forEach(item=>{ %>
-						<option value="<%=item.name %>"><%=item.name%></option>	
+						<option value="<%=item.name %>"><%=item.name.charAt(0).toUpperCase() + item.name.slice(1)%></option>	
 					<% })%>
 
 				</select>
-				<div id="preview" class="ui raised segment"></div>
+				<div id="preview" ><img class="preview-img" src="<%=pokeNames[0].image %>"></div>
+			</div>	
+				
 			
-			</div>
+		
 			
 			<input type="submit" class="ui button green">
 
