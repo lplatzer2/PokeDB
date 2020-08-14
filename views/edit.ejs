@@ -13,19 +13,31 @@
 				<label>Level</label>
 				<input type="number" name="entry[level]" value="<%=pokemon.level%>" min="1" max="100" required="required">
 			</div>
-
+			<div class="field">
+				<label for="generation">Filter By Generation</label>
+				<select id ="generation" name="entry[generation]" required="required">
+					<option value="all">Any Generation</option>
+					<option value="0">Gen 1: Kanto - Red,Blue,Yellow</option>
+					<option value="1">Gen 2: Johto - Gold,Silver,Crystal</option>
+					<option value="2">Gen 3: Hoenn - Ruby,Sapphire,Emerald</option>
+					<option value="3">Gen 4: Sinnoh - Diamond,Pearl,Platinum</option>
+					<option value="4">Gen 5: Unova - Black and White</option>
+					<option value="5">Gen 6: Kalos- X and Y</option>
+					<option value="6">Gen 7: Alola - Sun and Moon</option>
+				</select>
+			</div>
 			<div class="field">
 				<label>Species</label>
 				<!-- <input type="text" name="entry[species]" required="required" value="<pokemon.species%>"> -->
 
-				<select name="entry[species]" required="required">
-					<option value = "<%=pokemon.species%>"><%=pokemon.species%></option>
+				<select id="species" name="entry[species]" required="required">
+					<option value = "<%=pokemon.species%>"><%=pokemon.species.charAt(0).toUpperCase() + pokemon.species.slice(1)%></option>
 					<%pokeNames.forEach(item=>{ %>
 						<option value="<%=item.name %>"><%=item.name.charAt(0).toUpperCase() + item.name.slice(1)%></option>	
 					<% })%>
 
 				</select>
-
+				<div id="preview" ><img class="preview-img" src="<%=pokemon.image %>"></div>
 			</div>
 			
 			<input type="submit" class="ui button green">
@@ -39,5 +51,9 @@
 
 	
 </div>
+
+<div id="data" style="display: none"><%-JSON.stringify(pokeNames)%></div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="/../test.js"></script>
 
 <%-include ("partials/footer") %>
