@@ -1,11 +1,15 @@
 <%- include("partials/header")%>
 
+ 
+<div class="ui tiny modal"></div>
+
 <div id="records" class="ui center aligned grid container">
 		<div class="row">
 			<h2 class="center">All Pokemon</h2>
 		</div>
 	<% 	pokemon.forEach(poke=>{ %>
-
+			<%const pokeJSON =JSON.stringify(poke);%>
+			<%console.log(poke.owner.username);%>
 			<div class="ui raised segment poke-display" >
 	
 				<img src="<%=poke.image %>">
@@ -16,9 +20,9 @@
 				
 				<%if(currentUser && poke.owner.id.equals(currentUser.id)){%>
 				<a href="/pokemon/<%=poke._id%>/edit"><i class="edit icon"></i></a>
-					<form id="delete" method="POST" action="/pokemon/<%=poke._id%>?_method=DELETE">
-						<button class="ui button basic red"><i class="trash alternate icon"></i>Delete</button>
-					</form>
+					
+						<button class="ui button basic red" data-poke="<%=pokeJSON%>"><i class="trash alternate icon"></i>Delete</button>
+				<!-- 	</form> -->
 				<%}%>
 
 			</div>
@@ -27,5 +31,23 @@
 		
 	</div>
 
+<script type="text/javascript">
 
+	$(".button.red").on("click", (e)=>{
+		const poke = JSON.parse(e.target.dataset.poke);
+
+		//create and append modal
+		$('.tiny.modal')
+		.html(`
+			  <div class="header">Delete ${poke.name}?</div>
+			  <div class="actions">
+			  <div class="ui cancel button">Cancel</div>
+			  	<form id="delete" method="POST" action="/pokemon/${poke._id}?_method=DELETE">
+			    	<button class="ui approve red button">Delete</button>
+			    </form>
+			    
+			  </div>`)
+		.modal('show');
+	}); 
+</script>
 <%- include("partials/footer")%>

@@ -1,4 +1,5 @@
 <%-include("partials/header")%>
+<div class="ui tiny modal"></div>
 <div class="ui body-container">
 	
 	<div class="avatar-container">
@@ -16,7 +17,9 @@
 		</div>
 	<% 	user.pokeCollection.forEach(poke=>{ %>
 			<%console.log(poke.owner); %>
-			<div class="ui  raised segment" >
+			<%const pokeJSON =JSON.stringify(poke);%>
+			<div class="sixteen wide mobile eight wide tablet four wide computer column">
+				<div class="ui raised segment poke-display" >
 	
 				<img src="<%=poke.image %>">
 				<h3><%= poke.name %></h3>
@@ -24,14 +27,16 @@
 				<a href="/pokemon/<%=poke._id %>" class="ui button blue">Info</a>
 
 				<%if(currentUser && user._id.equals(currentUser.id)){ %>
-					<form id="delete" method="POST" action="/pokemon/<%=poke._id%>?_method=DELETE">
-						<button class="ui button basic red"><i class="fas fa-trash-alt"></i>Delete</button>
-					</form>
+					<!-- <form id="delete" method="POST" action="/pokemon/<%=poke._id%>?_method=DELETE"> -->
+						<button class="ui button basic red" data-poke="<%=pokeJSON%>"><i class="trash alternate icon"></i>Delete</button>
+				<!-- 	</form> -->
 				<%} %>
 				
 				
 
+				</div>
 			</div>
+			
 
 	<%	}) %>
 		
@@ -41,5 +46,25 @@
 	<p>Your pokedex is empty! <a href="/pokemon/new">Go add some pokemon.</a></p>
 	<%}%>
 </div>
+
+<script type="text/javascript">
+
+	$(".button.red").on("click", (e)=>{
+		const poke = JSON.parse(e.target.dataset.poke);
+		console.log(`clicked ${e.target.dataset.poke}`)
+		//create and append modal
+		$('.tiny.modal')
+		.html(`
+			  <div class="header">Delete ${poke.name}?</div>
+			  <div class="actions">
+			  <div class="ui cancel button">Cancel</div>
+			  	<form id="delete" method="POST" action="/pokemon/${poke._id}?_method=DELETE">
+			    	<button class="ui approve red button">Delete</button>
+			    </form>
+			    
+			  </div>`)
+		.modal('show');
+	}); 
+</script>
 
 <%-include("partials/footer") %>
