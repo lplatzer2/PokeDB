@@ -98,7 +98,7 @@ axios.get(`https://pokeapi.co/api/v2/pokemon?limit=1000`)
 	});
 
 //NEW
-app.get("/pokemon/new", (req, res)=>{
+app.get("/pokemon/new", isLoggedIn,(req, res)=>{
 	res.render("new", {pokeNames:pokeNamesAZ, page: "add"});
 })
 
@@ -128,7 +128,8 @@ app.post("/pokemon", isLoggedIn, (req,res)=>{
 						newPoke.save();
 						foundUser.pokeCollection.push(newPoke);
 						foundUser.save();
-						res.redirect("/pokemon");
+						// res.redirect("/pokemon");
+						res.redirect(`/users/:${foundUser.username}`);
 					}
 				})
 			});
@@ -187,7 +188,7 @@ app.delete("/pokemon/:id", isLoggedIn, isPokeOwner, (req,res)=>{
 		if(err){
 			res.send("error in deleting");
 		}else{
-			res.redirect("/pokemon");
+			res.redirect("back");
 		}
 	})
 })
