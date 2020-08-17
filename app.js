@@ -30,7 +30,7 @@ app.use(require("express-session")({
 
 app.use(flash());
 
-
+app.locals.moment = require("moment");
 
 //PASSPORT CONFIG
 app.use(passport.initialize());
@@ -55,7 +55,7 @@ app.get("/", (req,res)=>{
 })
 
 //INDEX
-app.get("/pokemon", isLoggedIn,(req,res)=>{
+app.get("/pokemon",(req,res)=>{
 	Pokemon.find((err, foundPoke)=>{
 		if(err){
 			res.send("Whoops,an error");
@@ -107,6 +107,7 @@ app.get("/pokemon/new", isLoggedIn,(req, res)=>{
 app.post("/pokemon", isLoggedIn, (req,res)=>{
 	User.findById(req.user._id, (err,foundUser)=>{
 		if(err || !foundUser){
+			console.log("error from create pokemon");
 			req.flash("error", "User not found.");
 			res.redirect("back");
 		}else{
@@ -129,7 +130,8 @@ app.post("/pokemon", isLoggedIn, (req,res)=>{
 						foundUser.pokeCollection.push(newPoke);
 						foundUser.save();
 						// res.redirect("/pokemon");
-						res.redirect(`/users/:${foundUser.username}`);
+
+						res.redirect(`/users/${foundUser.username}`);
 					}
 				})
 			});
@@ -138,7 +140,7 @@ app.post("/pokemon", isLoggedIn, (req,res)=>{
 })
 
 //SHOW
-app.get("/pokemon/:id", isLoggedIn, (req,res)=>{
+app.get("/pokemon/:id", (req,res)=>{
 	// console.log(req.params.id);
 	Pokemon.findById(req.params.id, (err,foundPoke)=>{
 		if(err || !foundPoke){
@@ -233,7 +235,7 @@ app.post("/login", passport.authenticate("local", {
 })
 
 //USER INDEX
-app.get("/users/:id", isLoggedIn, (req,res)=>{
+app.get("/users/:id",  (req,res)=>{
 	User.findOne({username: req.params.id}).populate("pokeCollection").exec((err, foundUser)=>{
 		if(err || !foundUser){
 			req.flash("error", "User not found.");
