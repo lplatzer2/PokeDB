@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
 	<title>Pokemon Collection</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -11,27 +13,55 @@
 	 <script src="https://kit.fontawesome.com/b1053c2d89.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<nav class="ui fixed stackable inverted menu">
+	<nav class="ui fixed inverted menu">
 		<div class="item">
 			<a href="/">
 				<img src="/pokemon.png">
 			</a>
 		</div>
-
+		<div class="ui grid item mobile only ">
+			<a href="#"><i class="bars icon"></i></a>
+		</div>
 		<%if(!currentUser){ %>
-
-			<a href="/register" class="item">Sign Up</a>
-			<a href="/login" class="item">Log In</a>
+			<a href="/register" class="item <%= typeof page !== 'undefined' && page === 'register' ? 'active' : ''%>">Sign Up</a>
+			<a href="/login" class="item <%= typeof page !== 'undefined' && page === 'login' ? 'active' : ''%>">Log In</a>
+			<a href="/pokemon/#records" class="item  <%= typeof page !== 'undefined' && page === 'view' ? 'active' : ''%>">View</a>
 		<%}else{%>
 			<a href="/logout" class="item">Logout</a>
-			<a href="/pokemon/#records" class="item">View</a>
-			<a href="/pokemon/new" class="item">Add</a>
-			<a href="/users/<%=currentUser.username %>" class="item">
-				<img src="<%=currentUser.avatar%>">
+			
+			<a href="/pokemon/new" class="item  <%= typeof page !== 'undefined' && page === 'add' ? 'active' : ''%>">Add</a>
+			<a href="/users/<%=currentUser.username %>" class="item <%= typeof page !== 'undefined' && page === 'profile' && currentUser.username === user.username ? 'active' : ''%>">
+				
+				
+				<img src='<%= currentUser.avatar %>'>
 			</a>
 
 		<% }%>
 	</nav>
+	<div class="ui vertical menu sidebar left">
+
+		<%if(!currentUser){ %>
+			<a href="/register" class="item <%= typeof page !== 'undefined' && page === 'register' ? 'active' : ''%>">Sign Up</a>
+			<a href="/login" class="item <%= typeof page !== 'undefined' && page === 'login' ? 'active' : ''%>">Log In</a>
+			<a href="/pokemon/#records" class="item  <%= typeof page !== 'undefined' && page === 'view' ? 'active' : ''%>">View</a>
+		<%}else{%>
+			<a href="/logout" class="item">Logout</a>
+			<a href="/pokemon/new" class="item  <%= typeof page !== 'undefined' && page === 'add' ? 'active' : ''%>">Add</a>
+			<a href="/users/<%=currentUser.username %>" class="item <%= typeof page !== 'undefined' && page === 'profile' && currentUser.username === user.username ? 'active' : ''%>">
+				
+				
+				<img src='<%= currentUser.avatar %>'>
+			</a>
+
+		<% }%>
+
+		
+	</div>
 
 
+	<div class="pusher"> <!--start pusher div-->
+		
+	
+	
+	
 	

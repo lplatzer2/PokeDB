@@ -8,10 +8,6 @@ h1{
 }
 
 
-
-
-
-
 #hero-text h1{
 	margin-bottom: 0;
 	line-height: .5;
@@ -27,6 +23,15 @@ h1 span{
 .ui.menu.fixed{
 	margin:0;
 	margin-bottom:  100px;
+}
+
+.ui.sidebar{
+	padding-top: 100px;
+}
+
+.ui.sidebar img{
+	width:50px;
+	height: 50px;
 }
 
 .body-container{
@@ -139,3 +144,11 @@ position: relative;
 	font-size: 18px;
 	
 }
+
+.poke-display img{
+	width: 96px;
+	height: 96px;
+}
+
+
+

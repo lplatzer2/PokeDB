@@ -1,28 +1,35 @@
 
 
-<div class="ui container">
-	
-	<% if(error && error.length>0){%>
-		<%console.log(error);%>
-			<div class="ui red negative message">
+	<div class="ui container">
+		
+		<% if(error && error.length>0){%>
+			<%console.log(error);%>
+				<div class="ui red negative message">
+				  <div class="header">
+				   <%=error%>
+				  </div>
+				</div>
+			<% }%>
+
+	<% if(success && success.length>0){%>
+		<%console.log(success);%>
+		<div class="ui positive message">
 			  <div class="header">
-			   <%=error%>
+			   <%=success%>
 			  </div>
 			</div>
+
 		<% }%>
 
-<% if(success && success.length>0){%>
-	<%console.log(success);%>
-	<div class="ui positive message">
-		  <div class="header">
-		   <%=success%>
-		  </div>
-		</div>
+		
+	</div>
+</div> <!--end pusher div-->
 
-	<% }%>
-
-	
-</div>
-
+<script>
+	const test =$("nav .icon.bars");
+	test.on("click", ()=> {
+		$('.ui.sidebar').sidebar('toggle');
+	});
+</script>
 </body>
 </html>
