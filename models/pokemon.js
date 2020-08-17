@@ -5,6 +5,10 @@ const pokeSchema = new mongoose.Schema({
 	level: Number,
 	species: String,
 	image: String,
+	dateAdded: {
+		type: Date,
+		default: Date.now
+	},
 	owner:{
 		id:{
 			type: mongoose.Schema.Types.ObjectId,

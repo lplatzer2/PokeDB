@@ -9,7 +9,7 @@
 	</div>
 
 	<h1 class="page-title"><%=user.username%>'s Profile</h1>
-
+	<p>Joined <%=moment(user.userSince).fromNow()%></p>
 	<%if(user.pokeCollection && user.pokeCollection.length>0){%>
 	<div id="records" class="ui center aligned grid container">
 		<div class="row">
