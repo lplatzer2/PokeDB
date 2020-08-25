@@ -13,6 +13,10 @@
 	 <script src="https://kit.fontawesome.com/b1053c2d89.js" crossorigin="anonymous"></script>
 </head>
 <body>
+	<%if(typeof page === 'undefined'){%>
+		<% page = 'other';%>
+	<%}%>
+	<%console.log(helper.isActive(page,"view"));%>
 	<nav class="ui fixed inverted menu">
 		<div class="item">
 			<a href="/">
@@ -22,35 +26,36 @@
 		<div class="ui grid item mobile only ">
 			<a href="#"><i class="bars icon"></i></a>
 		</div>
+		<a href="/pokemon/#records" class="item <%= helper.isActive(page,'view')%>">View</a>
 		<%if(!currentUser){ %>
-			<a href="/register" class="item <%= typeof page !== 'undefined' && page === 'register' ? 'active' : ''%>">Sign Up</a>
-			<a href="/login" class="item <%= typeof page !== 'undefined' && page === 'login' ? 'active' : ''%>">Log In</a>
-			<a href="/pokemon/#records" class="item  <%= typeof page !== 'undefined' && page === 'view' ? 'active' : ''%>">View</a>
-		<%}else{%>
-			<a href="/logout" class="item">Logout</a>
+			<a href="/register" class="item <%= helper.isActive(page,'register')%>">Sign Up</a>
+			<a href="/login" class="item <%= helper.isActive(page,'login')%>">Log In</a>
 			
-			<a href="/pokemon/new" class="item  <%= typeof page !== 'undefined' && page === 'add' ? 'active' : ''%>">Add</a>
-			<a href="/users/<%=currentUser.username %>" class="item <%= typeof page !== 'undefined' && page === 'profile' && currentUser.username === user.username ? 'active' : ''%>">
-				
-				
+		<%}else{%>
+			
+			
+			<a href="/pokemon/new" class="item  <%= helper.isActive(page,'add')%>">Add</a>
+			<a href="/logout" class="item">Logout</a>
+			<a href="/users/<%=currentUser.username %>" class="item <%= helper.isActive(page,'profile')%>">
 				<img src='<%= currentUser.avatar %>'>
 			</a>
 
 		<% }%>
+			
 	</nav>
 	<div class="ui vertical menu sidebar left">
-
+			<a href="/pokemon/#records" class="item  <%= helper.isActive(page,'view')%>">View</a>
 		<%if(!currentUser){ %>
-			<a href="/register" class="item <%= typeof page !== 'undefined' && page === 'register' ? 'active' : ''%>">Sign Up</a>
-			<a href="/login" class="item <%= typeof page !== 'undefined' && page === 'login' ? 'active' : ''%>">Log In</a>
-			<a href="/pokemon/#records" class="item  <%= typeof page !== 'undefined' && page === 'view' ? 'active' : ''%>">View</a>
+			<a href="/register" class="item <%= helper.isActive(page,'register')%>">Sign Up</a>
+			<a href="/login" class="item <%= helper.isActive(page,'login')%>">Log In</a>
+			
 		<%}else{%>
+			
+			<a href="/pokemon/new" class="item  <%= helper.isActive(page,'add')%>">Add</a>
 			<a href="/logout" class="item">Logout</a>
-			<a href="/pokemon/new" class="item  <%= typeof page !== 'undefined' && page === 'add' ? 'active' : ''%>">Add</a>
 			<a href="/users/<%=currentUser.username %>" class="item <%= typeof page !== 'undefined' && page === 'profile' && currentUser.username === user.username ? 'active' : ''%>">
-				
-				
 				<img src='<%= currentUser.avatar %>'>
+
 			</a>
 
 		<% }%>
