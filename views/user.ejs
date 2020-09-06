@@ -3,52 +3,71 @@
 <div class="ui body-container">
 	
 	<div class="avatar-container">
-
-		<img width="200px" src=<%=user.avatar%>
-	/>
+		<img width="200px" src=<%=user.avatar%>>
 	</div>
 
 	<h1 class="page-title"><%=user.username%>'s Profile</h1>
 	<p>Joined <%=moment(user.userSince).fromNow()%></p>
-	<%if(user.pokeCollection && user.pokeCollection.length>0){%>
-	<div id="records" class="ui center aligned grid container">
-		<div class="row">
-			<h2 class="center"><%=user.username%>'s Collection</h2>
-		</div>
-	<% 	user.pokeCollection.forEach(poke=>{ %>
-			<%console.log(poke.owner); %>
-			<%const pokeJSON =JSON.stringify(poke);%>
-			<div class="sixteen wide mobile eight wide tablet four wide computer column">
-				<div class="ui raised segment poke-display" >
-	
-				<img src="<%=poke.image %>">
-				<h3><%= poke.name %></h3>
-				<p>Lvl <%= poke.level%></p>
-				<a href="/pokemon/<%=poke._id %>" class="ui button blue">Info</a>
+		<%if(user.pokeCollection && user.pokeCollection.length>0){%>
 
-				<%if(currentUser && user._id.equals(currentUser.id)){ %>
-					<!-- <form id="delete" method="POST" action="/pokemon/<%=poke._id%>?_method=DELETE"> -->
-						<button class="ui button basic red" data-poke="<%=pokeJSON%>"><i class="trash alternate icon"></i>Delete</button>
-				<!-- 	</form> -->
-				<%} %>
+
+		<!--step 1: divide content into intial load and additional load-->
+			<% const pokeCollection = helper.chunkArr(user.pokeCollection, 4);%>
+		 
+
+
+
+			<div class="ui fluid  styled accordion">
+				  <div class="title active">
+				    <i class="dropdown icon"></i>
+				   Pokemon
+				  </div> <!--end title active div-->
+					<div class="content active">
+						<div id="records" class="ui transition visible center aligned grid container">
+							<div class="row">
+								<h2 class="center"><%=user.username%>'s Collection</h2>
+							</div>
+						<div class="stackable doubling four column row">
+								
+								<% 	pokeCollection.forEach((array,index)=>{ %>
+								
+									<%array.forEach(poke=>{ %>
+								
+										<%const pokeJSON =JSON.stringify(poke);%>
+										<div class="column ">
+											<div class="<%=index>0 ? 'hidden' : ''%> " data-index="<%=index%>" data-last= "<%=index===pokeCollection.length-1%>">
+												<div class="ui raised segment poke-display" >
+														
+															<img src="<%=poke.image %>">
+															<h3><%= poke.name %></h3>
+															<p>Lvl <%= poke.level%></p>
+													
+													
+															<a href="/pokemon/<%=poke._id %>" class="ui button blue">Info</a>
+
+															<%if(currentUser && user._id.equals(currentUser.id)){ %>
+																	<button class="ui button basic red" data-poke="<%=pokeJSON%>"><i class="trash alternate icon"></i>Delete</button>
+															<%} %>
+												
+													
+												</div>
+											</div>
+										</div>
+									<%})%>
+								<%})%>
+						</div>
+					</div><!--end content active div-->
+					<button id="loadMore">Show More</button>
+			</div><!--end accordion-->
+
 				
-				
-
-				</div>
-			</div>
-			
-
-	<%	}) %>
-		
-	</div>
-
-	<%}else{%>
-	<p>Your pokedex is empty! <a href="/pokemon/new">Go add some pokemon.</a></p>
-	<%}%>
-</div>
+		<%}else{%>
+			<p>Your pokedex is empty! <a href="/pokemon/new">Go add some pokemon.</a></p>
+		<%}%>
+</div><!--end body-container-->
 
 <script type="text/javascript">
-
+	//modal
 	$(".button.red").on("click", (e)=>{
 		const poke = JSON.parse(e.target.dataset.poke);
 		console.log(`clicked ${e.target.dataset.poke}`)
@@ -65,6 +84,47 @@
 			  </div>`)
 		.modal('show');
 	}); 
+
+	//accordion
+	$('.ui.accordion').accordion();
+
+	//load more
+	/**step 1: divide content into intial load and additional load
+		const pokeCollection = helper.chunkArr(user.pokeCollection, 4);
+	 	const pokeArrIndex = 0;
+	step 2: render initial load
+		function loadContent(){
+			pokeCollection[pokeArrIndex].forEach(poke=> render poke HTML)
+		}
+	step 3: create load more button (styled like a link)
+		<button>Load More </button>
+	step 4: create on click event handler for link
+		button.on("click", ()=>{
+			pokeArrIndex ++;
+			loadContent(); 
+		})
+	
+	**/
+
+	//show more
+
+	let pokeArrIndex = 1;
+	const showButton = document.getElementById('loadMore');
+	showButton.addEventListener("click", (e)=>{
+		const columns = document.querySelectorAll("[data-index='" + pokeArrIndex +"']");
+		console.log(columns);
+		columns.forEach(div=>{
+
+			div.classList.remove('hidden');
+			if(div.dataset.last==="true"){
+				console.log(typeof div.dataset.last);
+				showButton.classList.add('hidden');
+			}
+		});
+		pokeArrIndex++;
+		console.log(pokeArrIndex);
+	})
+
 </script>
 
 <%-include("partials/footer") %>

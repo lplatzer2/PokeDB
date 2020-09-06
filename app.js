@@ -10,6 +10,7 @@ const 	express 		= require("express"),
 		LocalStrategy   = require("passport-local"),
 		Pokemon         = require("./models/pokemon"),
 		User            = require("./models/user");
+		helper			= require("./helper.js")
 
 
 app.set("view engine", "ejs");
@@ -44,6 +45,7 @@ app.use((req,res,next)=>{
 	res.locals.currentUser = req.user;
 	res.locals.success = req.flash("success");
 	res.locals.error = req.flash("error");
+	res.locals.helper = helper;
 	// console.log(res.locals.error);
 	next();
 })
